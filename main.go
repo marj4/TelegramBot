@@ -1,17 +1,17 @@
 package main
 
 import (
+	"bot/Clients/telegram"
 	"flag"
-	"fmt"
 	"log"
 )
 
 func main() {
 	//token = flags.Get(token) - должен быть секретным
 	token := mustToken()
-	fmt.Fprintln(token)
 
-	//tgClient = telegram.New(token) - посредник между кодом и API(BF)
+	//tgClient = telegram.New(token) - собеседник API(BF)
+	tgClient := telegram.New(mustHost(), mustToken())
 
 	//fetcher = fetcher.New() - получает события
 
@@ -27,7 +27,7 @@ func mustToken() string {
 	//Вид к консоли bot -tg-bot-token 'mytoken'
 	//в token лежит
 	token := flag.String(
-		"token-bot-token",
+		"telegram-bot-token",
 		"",
 		"token for access to telegram bot",
 	)
@@ -41,4 +41,15 @@ func mustToken() string {
 
 	return *token
 
+}
+
+func mustHost() string {
+	host := flag.String(
+		"telegram-bot-host",
+		"",
+		"host for access to telegram bot",
+	)
+	if *host == "" {
+		log.Fatal("host is incorrect")
+	}
 }
