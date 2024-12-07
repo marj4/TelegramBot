@@ -1,6 +1,6 @@
 package events
 
-//Тут будут описаны 2 интерфейса
+//Тут описаны 2 интерфейса
 
 type Processor interface {
 	Process(e Event) error
@@ -19,5 +19,6 @@ const (
 )
 
 type Event struct {
-	Type Type
+	Type    Type
+	Message string
 }
